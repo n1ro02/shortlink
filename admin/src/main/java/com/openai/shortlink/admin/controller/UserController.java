@@ -1,7 +1,9 @@
 package com.openai.shortlink.admin.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.openai.shortlink.admin.common.convention.result.Result;
-import com.openai.shortlink.admin.common.enums.UserErrorCodeEnum;
+import com.openai.shortlink.admin.common.convention.result.Results;
+import com.openai.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.openai.shortlink.admin.dto.resp.UserRespDTO;
 import com.openai.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +24,14 @@ public class UserController {
      */
     @GetMapping("/api/shortlink/v1/user/{username}")
     public Result<UserRespDTO> getUserByUsername(@PathVariable String username) {
-        UserRespDTO result = userService.getUserByUsername(username);
-        if(result == null) {
-            return new Result<UserRespDTO>().setCode(UserErrorCodeEnum.User_NULL.code()).setMessage(UserErrorCodeEnum.User_NULL.message());
-        } else {
-            return new Result<UserRespDTO>().setCode("0").setData(result);
-        }
+        return Results.success(userService.getUserByUsername(username));
+    }
+
+    /**
+     *根据用户名查询用户信息
+     */
+    @GetMapping("/api/shortlink/v1/actual/user/{username}")
+    public Result<UserActualRespDTO> getActualUserByUsername(@PathVariable String username) {
+        return Results.success(BeanUtil.toBean(userService.getUserByUsername(username), UserActualRespDTO.class));
     }
 }
