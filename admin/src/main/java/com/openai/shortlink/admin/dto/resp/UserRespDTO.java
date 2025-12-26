@@ -5,7 +5,7 @@ import com.openai.shortlink.admin.common.serialize.PhoneDesensitizationSerialize
 import lombok.Data;
 
 /**
- * 用户返回参数响应
+ * 用户脱敏信息返回参数响应
  */
 @Data
 public class UserRespDTO {

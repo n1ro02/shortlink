@@ -3,7 +3,7 @@ package com.openai.shortlink.admin.dto.resp;
 import lombok.Data;
 
 /**
- * 用户返回参数响应
+ * 用户真实信息返回参数响应
  */
 @Data
 public class UserActualRespDTO {
