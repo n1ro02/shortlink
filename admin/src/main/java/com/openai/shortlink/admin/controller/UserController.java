@@ -24,7 +24,7 @@ public class UserController {
     /**
      *根据用户名查询用户信息
      */
-    @GetMapping("/api/shortlink/v1/user/{username}")
+    @GetMapping("/api/short-link/v1/user/{username}")
     public Result<UserRespDTO> getUserByUsername(@PathVariable String username) {
         return Results.success(userService.getUserByUsername(username));
     }
@@ -32,7 +32,7 @@ public class UserController {
     /**
      *根据用户名查询用户信息
      */
-    @GetMapping("/api/shortlink/v1/actual/user/{username}")
+    @GetMapping("/api/short-link/v1/actual/user/{username}")
     public Result<UserActualRespDTO> getActualUserByUsername(@PathVariable String username) {
         return Results.success(BeanUtil.toBean(userService.getUserByUsername(username), UserActualRespDTO.class));
     }
@@ -42,7 +42,7 @@ public class UserController {
      * @param username
      * @return 存在：true 不存在：false
      */
-    @GetMapping("/api/shortlink/v1/user/has-username")
+    @GetMapping("/api/short-link/v1/user/has-username")
     public Result<Boolean> hasUsername(@RequestParam("username") String username) {
         return Results.success(userService.hasUsername(username));
     }
