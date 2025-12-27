@@ -1,0 +1,24 @@
+services:
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
+    command:
+      [
+        "redis-server",
+        "--appendonly", "yes",
+
+        # 禁用默认用户
+        "--user", "default", "off",
+
+        # 创建 root 用户
+        "--user", "root",
+        "on",
+        ">123456",
+        "~*",
+        "+@all"
+      ]

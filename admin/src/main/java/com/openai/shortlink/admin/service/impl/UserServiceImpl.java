@@ -9,6 +9,8 @@ import com.openai.shortlink.admin.dao.entity.UserDO;
 import com.openai.shortlink.admin.dao.mapper.UserMapper;
 import com.openai.shortlink.admin.dto.resp.UserRespDTO;
 import com.openai.shortlink.admin.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.redisson.api.RBloomFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,10 @@ import org.springframework.stereotype.Service;
  * 用户接口实现层
  */
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
+
+    private final RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
 
     @Override
     public UserRespDTO getUserByUsername(String username) {
@@ -29,4 +34,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         BeanUtils.copyProperties(userDO, result);
         return result;
     }
+
+
+    @Override
+    public Boolean hasUsername(String username) {
+       return userRegisterCachePenetrationBloomFilter.contains(username);
+    }
+
+
 }
