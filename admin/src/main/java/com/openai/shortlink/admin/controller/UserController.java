@@ -3,14 +3,12 @@ package com.openai.shortlink.admin.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.openai.shortlink.admin.common.convention.result.Result;
 import com.openai.shortlink.admin.common.convention.result.Results;
+import com.openai.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.openai.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.openai.shortlink.admin.dto.resp.UserRespDTO;
 import com.openai.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户管理控制层
@@ -30,7 +28,7 @@ public class UserController {
     }
 
     /**
-     *根据用户名查询用户信息
+     *根据用户名查询真实用户信息
      */
     @GetMapping("/api/short-link/v1/actual/user/{username}")
     public Result<UserActualRespDTO> getActualUserByUsername(@PathVariable String username) {
@@ -39,11 +37,19 @@ public class UserController {
 
     /**
      * 查询用户名是否存在
-     * @param username
      * @return 存在：true 不存在：false
      */
     @GetMapping("/api/short-link/v1/user/has-username")
     public Result<Boolean> hasUsername(@RequestParam("username") String username) {
         return Results.success(userService.hasUsername(username));
+    }
+
+    /**
+     * 注册用户
+     */
+    @PostMapping("/api/short-link/v1/user")
+    public Result<Void> register(@RequestBody UserRegisterReqDTO requestParam) {
+        userService.register(requestParam);
+        return Results.success();
     }
 }
