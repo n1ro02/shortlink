@@ -23,7 +23,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("开始更新填充...");
-//        this.strictInsertFill(metaObject, "updateUserId", Long.class, 123456L)
         this.strictUpdateFill(metaObject, "updateTime", Date::new, Date.class);
+        this.strictInsertFill(metaObject, "delFlag",()->0,Integer.class);
     }
 }
