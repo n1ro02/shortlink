@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.openai.shortlink.admin.common.convention.result.Result;
 import com.openai.shortlink.admin.common.convention.result.Results;
 import com.openai.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.openai.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.openai.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.openai.shortlink.admin.dto.resp.UserRespDTO;
 import com.openai.shortlink.admin.service.UserService;
@@ -50,6 +51,15 @@ public class UserController {
     @PostMapping("/api/short-link/v1/user")
     public Result<Void> register(@RequestBody UserRegisterReqDTO requestParam) {
         userService.register(requestParam);
+        return Results.success();
+    }
+
+    /**
+     *更新用户信息
+     */
+    @PutMapping("/api/short-link/v1/user")
+    public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam) {
+        userService.update(requestParam);
         return Results.success();
     }
 }
