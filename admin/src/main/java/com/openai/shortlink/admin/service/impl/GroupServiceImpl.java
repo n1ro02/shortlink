@@ -1,14 +1,18 @@
 package com.openai.shortlink.admin.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.openai.shortlink.admin.dao.entity.GroupDO;
 import com.openai.shortlink.admin.dao.mapper.GroupMapper;
+import com.openai.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
 import com.openai.shortlink.admin.service.GroupService;
 import com.openai.shortlink.admin.toolkit.RandomGenerator;
 import groovy.util.logging.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -25,6 +29,17 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
                 .name(name)
                 .build();
         baseMapper.insert(groupDO);
+    }
+
+    @Override
+    public List<ShortLinkGroupRespDTO> listGroup() {
+        //TODO 获取用户名
+        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
+                .eq(GroupDO::getDelFlag, 0)
+                .eq(GroupDO::getUsername, "lucenn")
+                .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
+        List<GroupDO> groupDOList = baseMapper.selectList(queryWrapper);
+        return BeanUtil.copyToList(groupDOList, ShortLinkGroupRespDTO.class);
     }
 
     private boolean hasGid(String gid) {

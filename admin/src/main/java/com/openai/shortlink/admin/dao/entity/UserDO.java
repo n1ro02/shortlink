@@ -3,12 +3,10 @@ package com.openai.shortlink.admin.dao.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.openai.shortlink.admin.common.database.BaseDO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 用户持久层实体
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("t_user")
 public class UserDO extends BaseDO {

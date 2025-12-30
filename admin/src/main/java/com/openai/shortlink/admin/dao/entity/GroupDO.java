@@ -7,7 +7,6 @@ import lombok.*;
 /**
  * 短链接分组实体
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("t_group")
 @Builder
