@@ -2,14 +2,12 @@ package com.openai.shortlink.admin.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.openai.shortlink.admin.common.database.BaseDO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 短链接分组实体
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("t_group")
 @Builder
@@ -35,6 +33,11 @@ public class GroupDO extends BaseDO {
      * 创建分组用户名
      */
     private String username;
+
+    /**
+     * 分组排序
+     */
+    private Integer sortOrder;
 
 
 }
